@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:06:29 by dalves-p          #+#    #+#             */
-/*   Updated: 2022/01/15 05:25:41 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/16 17:32:15 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	draw_line(t_draw object, char *line)
 		x += 50;
 		i++;
 	}
-	//draw_square(object, 50, y, 0x054362F);
+	draw_square(object, 50, y, 0x054362F);
 }
 
 void	draw_map(t_draw object, char *argv)

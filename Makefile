@@ -6,13 +6,13 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2022/01/15 03:48:32 by gborne           ###   ########.fr        #
+#    Updated: 2022/01/16 17:31:24 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	so_long
 CC			=	gcc
-SRCS		=	srcs/* \
+SRCS		=	srcs/so_long.c \
 
 SRCS_BONUS	=
 
