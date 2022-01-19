@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/19 06:40:05 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/19 09:00:39 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct	s_win {
 typedef struct	s_map {
 	size_t	height;
 	size_t	wight;
+	size_t	collectible;
+	size_t	exit;
+	size_t	player;
 	char	*error;
 	char	*map;
 }				t_map;
@@ -77,24 +80,22 @@ typedef struct	s_img {
 	int		y;
 }				t_img;
 
-// init_map.c
-
-void	init_s_map(t_map *map);
-char	*check_map(int argc, char *file);
-int		init_map(int argc, char *file, t_map *map);
-
 // utils.c
-
 int		ft_puterror(char *error);
 int		close_win(int key, t_win *vars);
 
-//draw_map.c
+// init_map.c
+char	*check_map(int argc, int fd, t_map *map);
+int		init_map(int argc, char *file, t_map *map);
 
+// init_map_utils.c
+void	init_s_map(t_map *map);
+
+//draw_map.c
 void	draw_map(t_img object, char *map);
 void	draw_square(t_img object, int len, int heigh, int color);
 
 //draw_map_utils.c
-
 void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 #endif

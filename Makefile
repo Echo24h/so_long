@@ -6,15 +6,16 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2022/01/19 06:38:49 by gborne           ###   ########.fr        #
+#    Updated: 2022/01/19 06:57:06 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	so_long
 CC			=	gcc
 SRCS		=	srcs/main.c \
-				srcs/init_map.c \
 				srcs/utils.c \
+				srcs/init_map.c \
+				srcs/init_map_utils.c \
 				srcs/draw_map.c \
 				srcs/draw_map_utils.c \
 
