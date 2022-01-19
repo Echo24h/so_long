@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/19 09:00:39 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/19 17:06:03 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,13 @@
 #  define ESC					65307
 # endif
 
-# define SPRITE_H				64
-# define SPRITE_W				64
-
-typedef struct	s_win {
-	void	*mlx;
-	void	*win;
-}				t_win;
+# define SPRITE_Y				64
+# define SPRITE_X				64
 
 typedef struct	s_map {
-	size_t	height;
-	size_t	wight;
-	size_t	collectible;
+	size_t	x_max;
+	size_t	y_max;
+	size_t	coll;
 	size_t	exit;
 	size_t	player;
 	char	*error;
@@ -72,30 +67,45 @@ typedef struct	s_map {
 
 typedef struct	s_img {
 	void	*img;
-	char	*adress;
+	int		width;
+	int		height;
+}				t_img;
+
+typedef struct	s_root {
+	void	*mlx;
+	void	*win;
+	char	*address;
+	void	*img;
 	int		bits_per_pixel;
 	int		line_len;
 	int		endian;
-	int		x;
-	int		y;
-}				t_img;
+	void	*player;
+	void	*ground;
+	void	*wall;
+	void	*coll;
+	void	*exit;
+}				t_root;
 
 // utils.c
-int		ft_puterror(char *error);
-int		close_win(int key, t_win *vars);
+int				close_win(int key, t_root *vars);
 
 // init_map.c
-char	*check_map(int argc, int fd, t_map *map);
-int		init_map(int argc, char *file, t_map *map);
+int				init_map(int argc, char *file, t_map *map);
+void			check_line(char *line, t_map *map);
+void			check_last(t_map *map);
+void			init_s_map(t_map *map);
 
-// init_map_utils.c
-void	init_s_map(t_map *map);
+// init_root.c
+void			init_root(t_root *root, t_map *map);
+void			texture_init(t_root *root);
+void			texture_load(t_root *root, void *img, char *path);
 
 //draw_map.c
-void	draw_map(t_img object, char *map);
-void	draw_square(t_img object, int len, int heigh, int color);
+void			draw_map(t_img object, t_map map);
+void			draw_square(t_img object, int len, int heigh, int color);
 
-//draw_map_utils.c
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color);
+//mlx_utils.c
+void			my_mlx_pixel_put(t_root *data, int x, int y, int color);
+unsigned int	my_mlx_get_pixel_color(int x, int y, void *sprite);
 
 #endif
