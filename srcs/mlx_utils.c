@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/19 17:05:42 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/21 11:53:45 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ unsigned int	my_mlx_get_pixel_color(int x, int y, void *sprite)
 	int		line_length;
 	int		endian;
 
-	addr = mlx_get_data_addr(sprite, &bits_per_pixel, &line_length, &endian);
+	bits_per_pixel = 0;
+	line_length = 0;
+	endian = 0;
+	addr = mlx_get_data_addr(&sprite, &bits_per_pixel, &line_length, &endian);
 	src = addr + (y * line_length + x * (bits_per_pixel / 8));
+	ft_printf("linelen:%d, bpp:%d\nsprite: %p\n", &line_length, bits_per_pixel, sprite);
 	return (*(unsigned int *)src);
 }

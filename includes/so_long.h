@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/19 17:06:03 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/21 12:35:03 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void			init_s_map(t_map *map);
 // init_root.c
 void			init_root(t_root *root, t_map *map);
 void			texture_init(t_root *root);
-void			texture_load(t_root *root, void *img, char *path);
+void			*texture_load(t_root *root, char *path);
 
 //draw_map.c
 void			draw_map(t_img object, t_map map);

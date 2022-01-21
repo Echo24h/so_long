@@ -6,50 +6,24 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/19 17:32:30 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/21 12:31:51 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	put_sprite(t_root *root, void *sprite, size_t x, size_t y)
-{
-	int	pixel_x;
-	int	pixel_y;
-	int	color;
-
-	pixel_x = 0;
-	pixel_y = 0;
-	while (pixel_y < SPRITE_Y)
-	{
-		pixel_x = 0;
-		while (pixel_x < SPRITE_X)
-		{
-			ft_printf("x:%d, y:%d, sprite: %p", pixel_x, pixel_x, sprite);
-			color = my_mlx_get_pixel_color(pixel_x, pixel_y, sprite);
-			if (!(color & (0xFF << 24)))
-				my_mlx_pixel_put(root, (x * SPRITE_X) + pixel_x, (y * SPRITE_Y) + pixel_y, color);
-			pixel_x++;
-		}
-		pixel_y++;
-	}
-}
-
 void	generate_img(t_root *root, size_t x, size_t y, char c)
 {
-	ft_printf("\nsprite: %p", root->ground);
-	ft_printf("\n%c\n", c);
 	if (c == '1')
-		put_sprite(root, root->wall, x, y);
-	else if (c == '0')
-		put_sprite(root, root->ground, x, y);
+		mlx_put_image_to_window(root->mlx, root->win, root->wall, x * SPRITE_X, y * SPRITE_Y);
 	else if (c == 'C')
-		put_sprite(root, root->coll, x, y);
+		mlx_put_image_to_window(root->mlx, root->win, root->coll, x * SPRITE_X, y * SPRITE_Y);
 	else if (c == 'E')
-		put_sprite(root, root->exit, x, y);
+		mlx_put_image_to_window(root->mlx, root->win, root->exit, x * SPRITE_X, y * SPRITE_Y);
 	else if (c == 'P')
-		put_sprite(root, root->player, x, y);
-
+		mlx_put_image_to_window(root->mlx, root->win, root->player, x * SPRITE_X, y * SPRITE_Y);
+	else
+		mlx_put_image_to_window(root->mlx, root->win, root->ground, x * SPRITE_X, y * SPRITE_Y);
 }
 
 int	init_screen(t_root *root, t_map *map)
@@ -73,7 +47,6 @@ int	init_screen(t_root *root, t_map *map)
 		y++;
 		i += 2;
 	}
-	mlx_put_image_to_window(root->mlx, root->win, root->address, 0, 0);
 	return (1);
 }
 
