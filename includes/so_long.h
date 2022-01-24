@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/21 12:35:03 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/22 18:16:59 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,57 +55,68 @@
 # define SPRITE_Y				64
 # define SPRITE_X				64
 
+typedef struct	s_player {
+	int			quantity;
+	int			count;
+	int			x;
+	int			y;
+	int			coll;
+	int			exit;
+}				t_player;
+
 typedef struct	s_map {
-	size_t	x_max;
-	size_t	y_max;
-	size_t	coll;
-	size_t	exit;
-	size_t	player;
-	char	*error;
-	char	*map;
+	int			x_max;
+	int			y_max;
+	int			coll;
+	int			exit;
+	char		*error;
+	char		*temp_map;
+	char		**map;
+	t_player	player;
 }				t_map;
 
 typedef struct	s_img {
-	void	*img;
-	int		width;
-	int		height;
+	void		*img;
+	int			width;
+	int			height;
 }				t_img;
 
 typedef struct	s_root {
-	void	*mlx;
-	void	*win;
-	char	*address;
-	void	*img;
-	int		bits_per_pixel;
-	int		line_len;
-	int		endian;
-	void	*player;
-	void	*ground;
-	void	*wall;
-	void	*coll;
-	void	*exit;
+	void		*mlx;
+	void		*win;
+	char		*address;
+	void		*img;
+	int			bits_per_pixel;
+	int			line_len;
+	int			endian;
+	void		*img_player;
+	void		*img_ground;
+	void		*img_wall;
+	void		*img_coll;
+	void		*img_exit;
+	t_map		*map;
 }				t_root;
 
-// utils.c
-int				close_win(int key, t_root *vars);
+// manage_key.c
+int		close_win(t_root *root);
+void	manage_move(t_root *root, int key);
+int		manage_key(int key, t_root *root);
+void	move_sprite(char *player, char *cell);
 
 // init_map.c
-int				init_map(int argc, char *file, t_map *map);
-void			check_line(char *line, t_map *map);
-void			check_last(t_map *map);
-void			init_s_map(t_map *map);
+int		init_map(int argc, char *file, t_map *map);
+void	init_player(t_map *map, int i);
+void	check_line(char *line, t_map *map);
+void	check_last(t_map *map);
+void	init_s_map(t_map *map);
 
 // init_root.c
-void			init_root(t_root *root, t_map *map);
-void			texture_init(t_root *root);
-void			*texture_load(t_root *root, char *path);
+void	init_root(t_root *root, t_map *map);
+void	texture_init(t_root *root);
+void	*texture_load(t_root *root, char *path);
 
-//draw_map.c
-void			draw_map(t_img object, t_map map);
-void			draw_square(t_img object, int len, int heigh, int color);
-
-//mlx_utils.c
-void			my_mlx_pixel_put(t_root *data, int x, int y, int color);
-unsigned int	my_mlx_get_pixel_color(int x, int y, void *sprite);
+// init_screen.c
+int		init_screen(t_root *root, t_map *map);
+void	generate_img(t_root *root, int x, int y, char c);
 
 #endif
