@@ -5,42 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/22 17:55:54 by gborne           ###   ########.fr       */
+/*   Created: 2022/01/24 03:09:12 by gborne            #+#    #+#             */
+/*   Updated: 2022/01/24 05:17:50 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	*texture_load(t_root *root, char *path)
+t_map	*init_s_map(t_map *map)
 {
-	int		width;
-	int		height;
-	void	*img;
-
-	img = mlx_xpm_file_to_image(root->mlx, path, &width, &height);
-	if (img == 0)
-		ft_printf("Les textures n'ont pas pu charger.");
-	return (img);
+	map->x_max = 0;
+	map->y_max = 0;
+	map->coll = 0;
+	map->exit = 0;
+	map->player = 0;
+	map->temp_map = malloc(sizeof(char *));
+	map->temp_map[0] = '\0';
+	return (map);
 }
 
-void	texture_init(t_root *root)
+t_player *init_s_player(t_player *player)
 {
-	root->img_player = texture_load(root, "./img/enemy1.xpm");
-	root->img_exit = texture_load(root, "./img/exit.xpm");
-	root->img_coll = texture_load(root, "./img/collec.xpm");
-	root->img_wall = texture_load(root, "./img/tree.xpm");
-	root->img_ground = texture_load(root, "./img/floor.xpm");
+	player->count = 0;
+	player->x = 0;
+	player->y = 0;
+	player->coll = 0;
+	player->exit = 0;
+	return (player);
+}
+t_root	*init_root(t_root *root, t_map *map, t_player *s_player)
+{
+	root->s_map = init_s_map(map);
+	root->player = init_s_player(s_player);
+	root->error = NULL;
+	return (root);
 }
 
-void	init_root(t_root *root, t_map *map)
+void	init_player(t_root *root, int i)
 {
-	root->mlx = mlx_init();
-	root->win = mlx_new_window(root->mlx, map->x_max * SPRITE_X, \
-		map->y_max * SPRITE_Y, "So long!");
-	root->img = mlx_new_image(root->mlx, map->x_max * SPRITE_X, \
-		map->y_max * SPRITE_Y);
-	root->address = mlx_get_data_addr(root->img, &root->bits_per_pixel, \
-		&root->line_len, &root->endian);
-	texture_init(root);
+	root->s_map->player++;
+	root->player->x = i % root->s_map->x_max;
+	root->player->y = root->s_map->y_max;
 }

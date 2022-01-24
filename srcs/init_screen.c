@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/22 17:59:14 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/24 06:01:48 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	generate_img(t_root *root, int x, int y, char c)
 		mlx_put_image_to_window(root->mlx, root->win, root->img_ground, x * SPRITE_X, y * SPRITE_Y);
 }
 
-int	init_screen(t_root *root, t_map *map)
+int	init_screen(t_root *root)
 {
 	int	i;
 	int	x;
@@ -35,11 +35,11 @@ int	init_screen(t_root *root, t_map *map)
 	i = 0;
 	x = 0;
 	y = 0;
-	while (map->map[y])
+	while (root->map[y])
 	{
-		while (map->map[y][x])
+		while (root->map[y][x])
 		{
-			generate_img(root, x, y, map->map[y][x]);
+			generate_img(root, x, y, root->map[y][x]);
 			x++;
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/22 18:16:59 by gborne           ###   ########.fr       */
+/*   Updated: 2022/01/24 05:54:01 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 # define SPRITE_X				64
 
 typedef struct	s_player {
-	int			quantity;
 	int			count;
 	int			x;
 	int			y;
@@ -69,17 +68,9 @@ typedef struct	s_map {
 	int			y_max;
 	int			coll;
 	int			exit;
-	char		*error;
+	int			player;
 	char		*temp_map;
-	char		**map;
-	t_player	player;
 }				t_map;
-
-typedef struct	s_img {
-	void		*img;
-	int			width;
-	int			height;
-}				t_img;
 
 typedef struct	s_root {
 	void		*mlx;
@@ -94,29 +85,38 @@ typedef struct	s_root {
 	void		*img_wall;
 	void		*img_coll;
 	void		*img_exit;
-	t_map		*map;
+	char		*error;
+	char		**map;
+	t_map		*s_map;
+	t_player	*player;
 }				t_root;
 
 // manage_key.c
-int		close_win(t_root *root);
-void	manage_move(t_root *root, int key);
-int		manage_key(int key, t_root *root);
-void	move_sprite(char *player, char *cell);
+int			close_win(t_root *root);
+int			detect_cell(t_root *root, char cell);
+void		manage_move(t_root *root, int key);
+int			manage_key(int key, t_root *root);
+void		move_sprite(t_root *root, int y, int x);
 
 // init_map.c
-int		init_map(int argc, char *file, t_map *map);
-void	init_player(t_map *map, int i);
-void	check_line(char *line, t_map *map);
-void	check_last(t_map *map);
-void	init_s_map(t_map *map);
+int			init_map(int argc, char *file, t_root *root);
+void		construct_map(t_root *root);
+void		check_line(t_root *root, char *line);
+void		check_last(t_root *root);
 
-// init_root.c
-void	init_root(t_root *root, t_map *map);
-void	texture_init(t_root *root);
-void	*texture_load(t_root *root, char *path);
+// init_img.c
+void		init_img(t_root *root);
+void		init_sprite(t_root *root);
+void		*get_img_sprite(t_root *root, char *path);
 
 // init_screen.c
-int		init_screen(t_root *root, t_map *map);
-void	generate_img(t_root *root, int x, int y, char c);
+int			init_screen(t_root *root);
+void		generate_img(t_root *root, int x, int y, char c);
+
+// init_root.c
+t_player	*init_s_player(t_player *player);
+t_map		*init_s_map(t_map *map);
+t_root		*init_root(t_root *root, t_map *map, t_player *s_player);
+void		init_player(t_root *root, int i);
 
 #endif
