@@ -6,7 +6,7 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2022/01/24 04:50:17 by gborne           ###   ########.fr        #
+#    Updated: 2022/04/28 17:44:32 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,16 +28,15 @@ RM			=	rm -f
 OBJS		=	$(SRCS:%.c=%.o)
 OBJS_BONUS	=	$(SRCS_BONUS:%.c=%.o)
 
-
 ifeq ($(shell uname), Linux)
 MLXFLAGS	=	-L ./mlx_linux/ -lmlx -Ilmlx -lXext -lX11
 endif
-
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			make -C libft
+			make -C mlx_linux
 			$(CC) $(OBJS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME)
 
 %o:			%.c

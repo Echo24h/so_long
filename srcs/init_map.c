@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:22:03 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/24 05:18:32 by gborne           ###   ########.fr       */
+/*   Updated: 2022/04/28 18:13:31 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void	check_line(t_root *root, char *line)
 	{
 		if (root->s_map->y_max == 0)
 			root->s_map->x_max++;
-		if ((root->s_map->y_max == 0 || i == 0 || i == root->s_map->x_max) && line[i] != '1')
-			root->error = "Les bordures sont mal définies.";
+		if ((root->s_map->y_max == 0 || i == 0
+				|| i == root->s_map->x_max) && line[i] != '1')
+			root->error = "Wrong border.";
 		else if (line[i] == 'C')
 			root->s_map->coll++;
 		else if (line[i] == 'P')
@@ -30,33 +31,34 @@ void	check_line(t_root *root, char *line)
 		else if (line[i] == 'E')
 			root->s_map->exit++;
 		else if (!ft_strchr("1CPE0", line[i]))
-			root->error = "Un character différent de '1CPE0' est présent dans la map.";
+			root->error = "Wrong character is on map.";
 	}
 	if (i != root->s_map->x_max)
-		root->error = "Les bordures sont mal définies.";
+		root->error = "Wrong border.";
 	root->s_map->y_max++;
 }
 
 void	check_last(t_root *root)
 {
-	int i;
+	int	i;
 	int	x;
 	int	y;
 
 	i = -1;
 	x = 0;
 	y = 0;
-	if (root->s_map->x_max < 1 || root->s_map->y_max < 1 || root->s_map->coll < 1
-		|| root->s_map->exit != 1 || root->s_map->player!= 1)
-		root->error = "Une map doit contenir un joueur, une sortie et au moins un collectible.";
-	while (root->s_map->temp_map[++i] != '\0' && y < root->s_map->y_max)
+	if (root->s_map->x_max < 1
+		|| root->s_map->y_max < 1 || root->s_map->coll < 1
+		|| root->s_map->exit != 1 || root->s_map->player != 1)
+		root->error = "Wrong player, collectible, or border in map.";
+	while (root->s_map->temp_map[++i] != '\0' && y + 1 < root->s_map->y_max)
 		if (root->s_map->temp_map[i] == '\n')
 			y++;
 	while (root->s_map->temp_map[i] != '\0' && root->s_map->temp_map[i] != '\n')
 	{
 		x++;
 		if (x > root->s_map->x_max || root->s_map->temp_map[i] != '1')
-			root->error = "Les bordures sont mal définies.";
+			root->error = "Wrong border.";
 		i++;
 	}
 }
@@ -97,18 +99,16 @@ int	init_map(int argc, char *file, t_root *root)
 	fd = open(file, O_RDONLY);
 	if (fd < 1 || argc != 2)
 	{
-		root->error = "Entrez une unique map au format 'example.ber'.";
+		root->error = "Map format: 'example.ber'.";
 		return (0);
 	}
 	line = malloc(sizeof(char *));
+	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		check_line(root, line);
+		root->s_map->temp_map = ft_strjoin(root->s_map->temp_map, line);
 		line = get_next_line(fd);
-		if (line != NULL)
-		{
-			check_line(root, line);
-			root->s_map->temp_map = ft_strjoin(root->s_map->temp_map, line);
-		}
 	}
 	close(fd);
 	free(line);

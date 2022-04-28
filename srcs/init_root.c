@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 03:09:12 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/24 05:17:50 by gborne           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:38:48 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_map	*init_s_map(t_map *map)
 	return (map);
 }
 
-t_player *init_s_player(t_player *player)
+t_player	*init_s_player(t_player *player)
 {
 	player->count = 0;
 	player->x = 0;
@@ -33,6 +33,7 @@ t_player *init_s_player(t_player *player)
 	player->exit = 0;
 	return (player);
 }
+
 t_root	*init_root(t_root *root, t_map *map, t_player *s_player)
 {
 	root->s_map = init_s_map(map);

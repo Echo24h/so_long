@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/24 06:11:48 by gborne           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:57:42 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*get_img_sprite(t_root *root, char *path)
 
 	img = mlx_xpm_file_to_image(root->mlx, path, &width, &height);
 	if (img == 0)
-		ft_printf("Les textures n'ont pas pu charger.");
+		ft_printf("Wrong sprite.");
 	return (img);
 }
 

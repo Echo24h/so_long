@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:32:35 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/24 06:03:38 by gborne           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:37:41 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	detect_cell(t_root *root, char cell)
 	ft_printf("Score : %d\n", root->player->count);
 	if (cell == 'C')
 		root->player->coll++;
-	if(cell == 'E' && root->player->coll == root->s_map->coll)
+	if (cell == 'E' && root->player->coll == root->s_map->coll)
 	{
 		ft_printf("!!!YOU HAVE WIN!!!\n");
 		close_win(root);
@@ -43,15 +43,15 @@ int	detect_cell(t_root *root, char cell)
 
 void	move_sprite(t_root *root, int y, int x)
 {
-	int	x_player;
-	int	y_player;
+	int		x_player;
+	int		y_player;
 	char	cell;
 
 	x_player = root->player->x;
 	y_player = root->player->y;
 	cell = root->map[y_player + y][x_player + x];
 	if (!detect_cell(root, cell))
-		return;
+		return ;
 	root->map[y_player][x_player] = '0';
 	root->map[y_player + y][x_player + x] = 'P';
 	root->player->x += x;

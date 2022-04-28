@@ -6,17 +6,12 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/01/24 05:54:01 by gborne           ###   ########.fr       */
+/*   Updated: 2022/04/28 17:50:39 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
 
 # if defined(__APPLE__) && defined(__MACH__)
 #  include "../mlx/mlx.h"
@@ -55,7 +50,7 @@
 # define SPRITE_Y				64
 # define SPRITE_X				64
 
-typedef struct	s_player {
+typedef struct s_player {
 	int			count;
 	int			x;
 	int			y;
@@ -63,7 +58,7 @@ typedef struct	s_player {
 	int			exit;
 }				t_player;
 
-typedef struct	s_map {
+typedef struct s_map {
 	int			x_max;
 	int			y_max;
 	int			coll;
@@ -72,7 +67,7 @@ typedef struct	s_map {
 	char		*temp_map;
 }				t_map;
 
-typedef struct	s_root {
+typedef struct s_root {
 	void		*mlx;
 	void		*win;
 	char		*address;
