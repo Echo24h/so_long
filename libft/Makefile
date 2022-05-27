@@ -6,7 +6,7 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/09 18:17:20 by gborne            #+#    #+#              #
-#    Updated: 2022/01/12 01:26:09 by gborne           ###   ########.fr        #
+#    Updated: 2022/05/27 13:58:04 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILES = ft_memset \
 		ft_substr \
 		ft_striteri \
 		ft_strjoin \
+		ft_strjoin2 \
 		ft_strtrim \
 		ft_split \
 		ft_strmapi \

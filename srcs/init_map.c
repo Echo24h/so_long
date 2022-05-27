@@ -6,13 +6,20 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:22:03 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 18:13:31 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 14:50:39 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	check_line(t_root *root, char *line)
+static void	init_player(t_root *root, int i)
+{
+	root->s_map->player++;
+	root->player->x = i % root->s_map->x_max;
+	root->player->y = root->s_map->y_max;
+}
+
+static void	check_line(t_root *root, char *line)
 {
 	int	i;
 
@@ -23,7 +30,7 @@ void	check_line(t_root *root, char *line)
 			root->s_map->x_max++;
 		if ((root->s_map->y_max == 0 || i == 0
 				|| i == root->s_map->x_max) && line[i] != '1')
-			root->error = "Wrong border.";
+			root->error = "Error\nWrong border.";
 		else if (line[i] == 'C')
 			root->s_map->coll++;
 		else if (line[i] == 'P')
@@ -31,14 +38,14 @@ void	check_line(t_root *root, char *line)
 		else if (line[i] == 'E')
 			root->s_map->exit++;
 		else if (!ft_strchr("1CPE0", line[i]))
-			root->error = "Wrong character is on map.";
+			root->error = "Error\nWrong character is on map.";
 	}
 	if (i != root->s_map->x_max)
-		root->error = "Wrong border.";
+		root->error = "Error\nWrong border.";
 	root->s_map->y_max++;
 }
 
-void	check_last(t_root *root)
+static void	check_last(t_root *root)
 {
 	int	i;
 	int	x;
@@ -50,7 +57,7 @@ void	check_last(t_root *root)
 	if (root->s_map->x_max < 1
 		|| root->s_map->y_max < 1 || root->s_map->coll < 1
 		|| root->s_map->exit != 1 || root->s_map->player != 1)
-		root->error = "Wrong player, collectible, or border in map.";
+		root->error = "Error\nWrong player, collectible, or border in map.";
 	while (root->s_map->temp_map[++i] != '\0' && y + 1 < root->s_map->y_max)
 		if (root->s_map->temp_map[i] == '\n')
 			y++;
@@ -58,12 +65,12 @@ void	check_last(t_root *root)
 	{
 		x++;
 		if (x > root->s_map->x_max || root->s_map->temp_map[i] != '1')
-			root->error = "Wrong border.";
+			root->error = "Error\nWrong border.";
 		i++;
 	}
 }
 
-void	construct_map(t_root *root)
+static void	construct_map(t_root *root)
 {
 	int	i;
 	int	x;
@@ -73,7 +80,7 @@ void	construct_map(t_root *root)
 	x = 0;
 	y = 0;
 	root->map = malloc(sizeof(char *) * (root->s_map->y_max + 1));
-	while (root->s_map->temp_map[i] && y < root->s_map->y_max)
+	while (y < root->s_map->y_max)
 	{
 		root->map[y] = malloc(sizeof(char) * (root->s_map->x_max + 1));
 		while (x < root->s_map->x_max)
@@ -88,7 +95,6 @@ void	construct_map(t_root *root)
 		i++;
 	}
 	root->map[y] = NULL;
-	free(root->s_map->temp_map);
 }
 
 int	init_map(int argc, char *file, t_root *root)
@@ -99,22 +105,23 @@ int	init_map(int argc, char *file, t_root *root)
 	fd = open(file, O_RDONLY);
 	if (fd < 1 || argc != 2)
 	{
-		root->error = "Map format: 'example.ber'.";
+		root->error = "Error\nUse: ./so_long 'example.ber'.";
 		return (0);
 	}
-	line = malloc(sizeof(char *));
+	line = NULL;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		check_line(root, line);
-		root->s_map->temp_map = ft_strjoin(root->s_map->temp_map, line);
+		root->s_map->temp_map = ft_strjoin2(root->s_map->temp_map, line);
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	free(line);
 	check_last(root);
 	if (root->error)
 		return (0);
 	construct_map(root);
+	free(root->s_map->temp_map);
 	return (1);
 }

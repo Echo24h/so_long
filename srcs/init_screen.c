@@ -6,13 +6,13 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:51 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 17:39:45 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 13:21:44 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	generate_img(t_root *root, int x, int y, char c)
+static void	generate_img(t_root *root, int x, int y, char c)
 {
 	if (c == '1')
 		mlx_put_image_to_window(root->mlx, root->win,

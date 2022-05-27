@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 18:17:20 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 17:50:39 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 13:57:38 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void			ft_striteri(char *s, void (*f)(unsigned int, char*));
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin2(char *s1, char const *s2);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strnstr(const char *haystack, const char *needle,
 					size_t len);

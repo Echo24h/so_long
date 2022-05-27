@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_key.c                                       :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:32:35 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 17:37:41 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 14:57:32 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	close_win(t_root *root)
-{
-	int	y;
-
-	y = -1;
-	mlx_destroy_window(root->mlx, root->win);
-	free(root->mlx);
-	while (root->map[++y])
-		free(root->map[y]);
-	free(root->map);
-	exit(0);
-}
-
-int	detect_cell(t_root *root, char cell)
+static int	detect_cell(t_root *root, char cell)
 {
 	if (cell == '1' || (cell == 'E' && root->player->coll != root->s_map->coll))
 		return (0);
@@ -41,7 +28,7 @@ int	detect_cell(t_root *root, char cell)
 	return (1);
 }
 
-void	move_sprite(t_root *root, int y, int x)
+static void	move_sprite(t_root *root, int y, int x)
 {
 	int		x_player;
 	int		y_player;
@@ -59,7 +46,7 @@ void	move_sprite(t_root *root, int y, int x)
 	init_screen(root);
 }
 
-void	manage_move(t_root *root, int key)
+static void	manage_move(t_root *root, int key)
 {
 	if (key == LEFT_KEY || key == A_KEY)
 		move_sprite(root, 0, -1);
@@ -69,6 +56,24 @@ void	manage_move(t_root *root, int key)
 		move_sprite(root, -1, 0);
 	else if (key == DOWN_KEY || key == S_KEY)
 		move_sprite(root, 1, 0);
+}
+
+int	close_win(t_root *root)
+{
+	int	y;
+
+	y = -1;
+	if (root->mlx && root->win)
+		mlx_destroy_window(root->mlx, root->win);
+	if (root->map)
+	{
+		while (root->map[++y])
+			free(root->map[y]);
+		free(root->map);
+	}
+	if (root->error)
+		ft_printf("%s\n", root->error);
+	exit(0);
 }
 
 int	manage_key(int key, t_root *root)

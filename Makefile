@@ -6,14 +6,14 @@
 #    By: gborne <gborne@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 17:10:18 by dalves-p          #+#    #+#              #
-#    Updated: 2022/04/28 17:44:32 by gborne           ###   ########.fr        #
+#    Updated: 2022/05/27 13:39:44 by gborne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	so_long
 CC			=	gcc
 SRCS		=	srcs/main.c \
-				srcs/manage_key.c \
+				srcs/hooks.c \
 				srcs/init_map.c \
 				srcs/init_img.c \
 				srcs/init_root.c \

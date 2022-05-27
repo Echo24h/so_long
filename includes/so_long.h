@@ -6,7 +6,7 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 03:46:39 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 17:50:39 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 13:38:40 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,32 +86,13 @@ typedef struct s_root {
 	t_player	*player;
 }				t_root;
 
-// manage_key.c
+// hooks.c
 int			close_win(t_root *root);
-int			detect_cell(t_root *root, char cell);
-void		manage_move(t_root *root, int key);
 int			manage_key(int key, t_root *root);
-void		move_sprite(t_root *root, int y, int x);
 
-// init_map.c
 int			init_map(int argc, char *file, t_root *root);
-void		construct_map(t_root *root);
-void		check_line(t_root *root, char *line);
-void		check_last(t_root *root);
-
-// init_img.c
-void		init_img(t_root *root);
-void		init_sprite(t_root *root);
-void		*get_img_sprite(t_root *root, char *path);
-
-// init_screen.c
+int			init_img(t_root *root);
 int			init_screen(t_root *root);
-void		generate_img(t_root *root, int x, int y, char c);
-
-// init_root.c
-t_player	*init_s_player(t_player *player);
-t_map		*init_s_map(t_map *map);
 t_root		*init_root(t_root *root, t_map *map, t_player *s_player);
-void		init_player(t_root *root, int i);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: gborne <gborne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 03:09:12 by gborne            #+#    #+#             */
-/*   Updated: 2022/04/28 17:38:48 by gborne           ###   ########.fr       */
+/*   Updated: 2022/05/27 14:56:24 by gborne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-t_map	*init_s_map(t_map *map)
+static t_map	*init_s_map(t_map *map)
 {
 	map->x_max = 0;
 	map->y_max = 0;
@@ -24,7 +24,7 @@ t_map	*init_s_map(t_map *map)
 	return (map);
 }
 
-t_player	*init_s_player(t_player *player)
+static t_player	*init_s_player(t_player *player)
 {
 	player->count = 0;
 	player->x = 0;
@@ -36,15 +36,11 @@ t_player	*init_s_player(t_player *player)
 
 t_root	*init_root(t_root *root, t_map *map, t_player *s_player)
 {
+	root->mlx = NULL;
+	root->win = NULL;
 	root->s_map = init_s_map(map);
 	root->player = init_s_player(s_player);
 	root->error = NULL;
+	root->map = NULL;
 	return (root);
-}
-
-void	init_player(t_root *root, int i)
-{
-	root->s_map->player++;
-	root->player->x = i % root->s_map->x_max;
-	root->player->y = root->s_map->y_max;
 }
