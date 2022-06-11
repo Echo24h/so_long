@@ -56,15 +56,19 @@ static void	check_last(t_root *root)
 	y = 0;
 	if (root->s_map->x_max < 1
 		|| root->s_map->y_max < 1 || root->s_map->coll < 1
-		|| root->s_map->exit != 1 || root->s_map->player != 1)
+		|| root->s_map->exit < 1 || root->s_map->player != 1)
 		root->error = "Error\nWrong player, collectible, or border in map.";
 	while (root->s_map->temp_map[++i] != '\0' && y + 1 < root->s_map->y_max)
+	{
 		if (root->s_map->temp_map[i] == '\n')
 			y++;
+		else if (root->s_map->temp_map[i + 1] == '\n'
+			&& root->s_map->temp_map[i] != '1')
+			root->error = "Error\nWrong border.";
+	}
 	while (root->s_map->temp_map[i] != '\0' && root->s_map->temp_map[i] != '\n')
 	{
-		x++;
-		if (x > root->s_map->x_max || root->s_map->temp_map[i] != '1')
+		if (++x > root->s_map->x_max || root->s_map->temp_map[i] != '1')
 			root->error = "Error\nWrong border.";
 		i++;
 	}
