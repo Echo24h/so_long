@@ -1,4 +1,4 @@
-#So_Long
+# So_Long
 
 So_Long est un jeu de type "arcade" en 2D qui a pour but de permettre au joueur de naviguer dans un labyrinthe, collecter des objets et atteindre la sortie tout en évitant les obstacles. Le jeu est généré aléatoirement à chaque partie, ce qui signifie que chaque expérience de jeu est unique.
 
